@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import SignUp from "./Pages/Auth/SignUp";
 import Login from "./Pages/Auth/SignIn";
 import { UserState } from './Context';
+import Home from "./Pages/Home";
 
 const CommonRoutes = () => {
     const { user, setUser } = UserState()
@@ -16,6 +17,10 @@ const CommonRoutes = () => {
         <Route
           path="/"
           element={<Login/>}
+        />
+         <Route
+          path="/home"
+          element={<Home/>}
         />
         
       </Routes>

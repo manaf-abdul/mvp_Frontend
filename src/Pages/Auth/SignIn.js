@@ -29,14 +29,18 @@ const SignIn = () => {
             if (!values.email || !values.password) {
                 toast.info("Please fill all fields")
             } else {
-                const { data } = await axios.post(`${BASEURL}/api/user/signin`, values)
+                const payload={
+                    email:values.email,
+                    password:values.password
+                }
+                const { data } = await axios.post(`${BASEURL}/auth/login`, payload)
                 toast.success("SignIn Successfull")
                 console.log("data",data)
-                if (data && data.token) {
+                if (data && data.accessToken) {
                     console.log("inside")
                     setUser(data)
-                    localStorage.setItem('user',JSON.stringify(data))
-                    navigate('/')
+                    localStorage.setItem('user',JSON.stringify(data.accessToken))
+                    navigate('/home')
                 }
             }
         } catch (error) {
