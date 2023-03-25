@@ -4,6 +4,7 @@ import SignUp from "./Pages/Auth/SignUp";
 import Login from "./Pages/Auth/SignIn";
 import { UserState } from './Context';
 import Home from "./Pages/Home";
+import UpdateProfile from "./Pages/UpdateProfile";
 
 const CommonRoutes = () => {
     const { user, setUser } = UserState()
@@ -21,6 +22,10 @@ const CommonRoutes = () => {
          <Route
           path="/home"
           element={<Home/>}
+        />
+         <Route
+          path="/update-profile"
+          element={<UpdateProfile/>}
         />
         
       </Routes>
