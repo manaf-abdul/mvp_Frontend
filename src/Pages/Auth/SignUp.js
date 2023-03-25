@@ -101,7 +101,7 @@ const SignUp = () => {
             <hr />
             <div className='footer-text'>
               <p>Already have an account?</p>
-              <Link to={'/login'}>Login</Link>
+              <Link to={'/'}>Login</Link>
             </div>
           </form>
         </div>

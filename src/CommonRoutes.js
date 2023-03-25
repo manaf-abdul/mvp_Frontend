@@ -14,7 +14,7 @@ const CommonRoutes = () => {
           element={<SignUp/>}
         />
         <Route
-          path="/login"
+          path="/"
           element={<Login/>}
         />
         
