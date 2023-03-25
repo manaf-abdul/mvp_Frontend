@@ -7,9 +7,11 @@ import { toast } from 'react-toastify'
 import axios from "axios"
 import BASEURL from '../../constants'
 import PasswordStrengthBar from 'react-password-strength-bar';
+import { UserState } from '../../Context';
 
 const SignUp = () => {
   const navigate = useNavigate()
+  const { user, setUser } = UserState()
 
   const [otp, setOtp] = useState('');
   const [values, setValues] = useState({
@@ -19,6 +21,7 @@ const SignUp = () => {
     confirmPassword: ""
   })
   const [show, setShow] = useState(false)
+  const [loading, setLoading] = useState(false)
   const [otpPage, setOtpPage] = useState(false)
 
   const handleChange = (e) => {
@@ -28,6 +31,7 @@ const SignUp = () => {
   const signUpHandler = async (e) => {
     e.preventDefault()
     try {
+      setLoading(true)
       if (!values.name || !values.email || values.password.length < 8) {
         if (values.password.length < 8) {
           toast.error("Passwprd should be atleast 8 characters")
@@ -45,12 +49,16 @@ const SignUp = () => {
         setOtpPage(true)
       }
     } catch (error) {
-      toast.error(error.response.data)
+      console.log("error",error.message)
+      toast.error(error.response.data.message)
+    } finally {
+      setLoading(false)
     }
   }
 
   const submitHandler = async () => {
     try {
+      setLoading(true)
       const payload = {
         email: values.email,
         otp: Number(otp)
@@ -58,9 +66,16 @@ const SignUp = () => {
       const {data} = await axios.post(`${BASEURL}/auth/verify-otp`, payload)
       console.log("data", data)
       toast.success("SignUp Successfull")
-      navigate('/login')
+      if (data && data.accessToken) {
+        console.log("inside")
+        setUser(data)
+        localStorage.setItem('user',JSON.stringify(data.accessToken))
+        navigate('/home')
+    }
     } catch (error) {
-      toast.error(error.response.data)
+      toast.error(error.response.data.message)
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -86,7 +101,7 @@ const SignUp = () => {
 
                 </div>
                 <div className='form-input'>
-                  <button onClick={submitHandler}>Verify OTP</button>
+                  <button onClick={submitHandler}>{loading?"Loading...":"Verify OTP"}</button>
                 </div>
               </>
               :
@@ -155,7 +170,7 @@ const SignUp = () => {
                     <label htmlFor='check-box'>i agree with <Link>terms</Link> And <Link>Privacy</Link></label>
                   </div>
                   <div className='form-input'>
-                    <button type="submit">Sign Up</button>
+                    <button type="submit">{loading?"loading...":"Sign Up"}</button>
                   </div>
                   <hr />
                   <div className='footer-text'>

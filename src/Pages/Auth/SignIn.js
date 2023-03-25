@@ -18,6 +18,7 @@ const SignIn = () => {
         password: ""
     })
     const [show, setShow] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const handleChange = (e) => {
         setValues({ ...values, [e.target.name]: e.target.value })
@@ -26,7 +27,8 @@ const SignIn = () => {
     const submitHandler = async (e) => {
         e.preventDefault()
         try {
-            if (!values.email || !values.password) {
+            setLoading(true)
+            if (!values.email || values.password.length<5) {
                 toast.info("Please fill all fields")
             } else {
                 const payload={
@@ -45,7 +47,9 @@ const SignIn = () => {
             }
         } catch (error) {
             console.log(error);
-            toast.error(error.response.data)
+            toast.error(error.response.data.error)
+        } finally{
+            setLoading(false)
         }
     }
 
@@ -93,7 +97,7 @@ const SignIn = () => {
                         <label for="remember-me">Remember me</label>
                     </div>
                     <div className='form-input'>
-                        <button type='submit'>Login</button>
+                        <button type='submit'>{loading ? "Loading..." : "Login"}</button>
                     </div>
                     <div className='form-input'>
                         <Link>Forgot Password</Link>
