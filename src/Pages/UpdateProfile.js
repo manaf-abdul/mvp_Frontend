@@ -26,9 +26,10 @@ import BASEURL from '../constants';
 import axios from "axios"
 import './UpdateProfile.css'
 import { useNavigate } from 'react-router-dom';
+import { SyncOutlined } from '@ant-design/icons';
 
 const UpdateProfile = () => {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -43,6 +44,7 @@ const UpdateProfile = () => {
 
   const [imagePreview, setImagePreview] = useState("")
   const [image, setImage] = useState("")
+  const [loading, setLoading] = useState(false)
   const theme = useTheme();
   const [skills, setSkills] = React.useState([]);
   const [tags, setTags] = React.useState([]);
@@ -111,6 +113,7 @@ const UpdateProfile = () => {
   const submitHandler = async (e) => {
     e.preventDefault()
     try {
+      setLoading(true)
       const config = {
         headers: {
           Authorization: `Bearer ${user.accessToken}`
@@ -121,11 +124,14 @@ const UpdateProfile = () => {
       navigate('/home')
     } catch (error) {
       navigate('/home')
+    } finally {
+      setLoading(false)
     }
   }
 
   const handleFile = async (e) => {
-    // setLoading(true)
+    setLoading(true)
+
     const nanoid = customAlphabet("1234567890ABCDEFHOY", 12);
     const uniqueId = nanoid();
     let file = e.target.files[0];
@@ -144,12 +150,14 @@ const UpdateProfile = () => {
         }
       }
       const { data } = await axios.get(`${BASEURL}/util/pre-signed-url?key=${fileName}`, configuration)
-      
-      const datas = await axios.put(`${data.signedUrl}`,fileToBase64);
-      console.log({datas})
+
+      const datas = await axios.put(`${data.signedUrl}`, fileToBase64);
+      console.log({ datas })
       setImage(fileName)
     } catch (error) {
       console.log(error);
+    } finally {
+      setLoading(false)
     }
   };
 
@@ -363,9 +371,12 @@ const UpdateProfile = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-            <Button type='submit' variant="contained" fullWidth>
-              Update
-            </Button>
+              <Button type='submit' variant="contained" fullWidth disabled={loading}>
+                {
+                  loading ? <><SyncOutlined spin />Loading...</> :
+                    "Update"
+                }
+              </Button>
             </Grid>
           </form>
         </div>

@@ -8,6 +8,7 @@ import axios from "axios"
 import BASEURL from '../../constants'
 import PasswordStrengthBar from 'react-password-strength-bar';
 import { UserState } from '../../Context';
+import { SyncOutlined } from '@ant-design/icons'
 
 const SignUp = () => {
   const navigate = useNavigate()
@@ -49,7 +50,7 @@ const SignUp = () => {
         setOtpPage(true)
       }
     } catch (error) {
-      console.log("error",error.message)
+      console.log("error", error.message)
       toast.error(error.response.data.message)
     } finally {
       setLoading(false)
@@ -63,15 +64,15 @@ const SignUp = () => {
         email: values.email,
         otp: Number(otp)
       }
-      const {data} = await axios.post(`${BASEURL}/auth/verify-otp`, payload)
+      const { data } = await axios.post(`${BASEURL}/auth/verify-otp`, payload)
       console.log("data", data)
       toast.success("SignUp Successfull")
       if (data && data.user) {
         console.log("inside")
         setUser(data.user)
-        localStorage.setItem('user',JSON.stringify(data.user))
+        localStorage.setItem('user', JSON.stringify(data.user))
         navigate('/update-profile')
-    }
+      }
     } catch (error) {
       toast.error(error.response.data.message)
     } finally {
@@ -82,8 +83,8 @@ const SignUp = () => {
   return (
     <div>
       <div className='container-custom'>
-        <div className='form-box' style={{marginTop:"3rem"}}>
-        <h1>Sign Up</h1>
+        <div className='form-box' style={{ marginTop: "3rem" }}>
+          <h1>Sign Up</h1>
           {
             otpPage ?
               <>
@@ -101,7 +102,7 @@ const SignUp = () => {
 
                 </div>
                 <div className='form-input'>
-                  <button onClick={submitHandler}>{loading?"Loading...":"Verify OTP"}</button>
+                  <button onClick={submitHandler}>{loading ? "Loading..." : "Verify OTP"}</button>
                 </div>
               </>
               :
@@ -170,7 +171,9 @@ const SignUp = () => {
                     <label htmlFor='check-box'>i agree with <Link>terms</Link> And <Link>Privacy</Link></label>
                   </div> */}
                   <div className='form-input'>
-                    <button type="submit">{loading?"loading...":"Sign Up"}</button>
+                    <button type="submit">
+                      {loading ? <><SyncOutlined spin />Loading...</> : "Sign Up"}
+                    </button>
                   </div>
                   <hr />
                   <div className='footer-texts'>

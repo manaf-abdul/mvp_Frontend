@@ -7,6 +7,7 @@ import { toast } from 'react-toastify'
 import BASEURL from '../../constants'
 import axios from 'axios'
 import { UserState } from '../../Context';
+import { SyncOutlined } from '@ant-design/icons'
 
 const SignIn = () => {
     const { user, setUser } = UserState()
@@ -28,27 +29,27 @@ const SignIn = () => {
         e.preventDefault()
         try {
             setLoading(true)
-            if (!values.email || values.password.length<5) {
+            if (!values.email || values.password.length < 5) {
                 toast.info("Please fill all fields")
             } else {
-                const payload={
-                    email:values.email,
-                    password:values.password
+                const payload = {
+                    email: values.email,
+                    password: values.password
                 }
                 const { data } = await axios.post(`${BASEURL}/auth/login`, payload)
                 toast.success("SignIn Successfull")
-                console.log("data",data)
+                console.log("data", data)
                 if (data && data.user) {
                     console.log("inside")
                     setUser(data.user)
-                    localStorage.setItem('user',JSON.stringify(data.user))
+                    localStorage.setItem('user', JSON.stringify(data.user))
                     navigate('/home')
                 }
             }
         } catch (error) {
             console.log(error);
             toast.error(error.response.data.error)
-        } finally{
+        } finally {
             setLoading(false)
         }
     }
@@ -97,7 +98,9 @@ const SignIn = () => {
                         <label for="remember-me">Remember me</label>
                     </div> */}
                     <div className='form-input'>
-                        <button disabled={loading} type='submit'>{loading ? "Loading..." : "Login"}</button>
+                        <button disabled={loading} type='submit'>
+                            {loading ? <><SyncOutlined spin />Loading...</> : "Login"}
+                        </button>
                     </div>
                     <div className='form-input'>
                         <Link>Forgot Password</Link>
