@@ -172,7 +172,7 @@ const SignUp = () => {
                   </div> */}
                   <div className='form-input'>
                     <button type="submit">
-                      {loading ? <><SyncOutlined spin />Loading...</> : "Sign Up"}
+                      {loading ? <><SyncOutlined spin /></> : "Sign Up"}
                     </button>
                   </div>
                   <hr />

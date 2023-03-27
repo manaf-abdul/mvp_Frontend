@@ -99,7 +99,7 @@ const SignIn = () => {
                     </div> */}
                     <div className='form-input'>
                         <button disabled={loading} type='submit'>
-                            {loading ? <><SyncOutlined spin />Loading...</> : "Login"}
+                            {loading ? <><SyncOutlined spin /></> : "Login"}
                         </button>
                     </div>
                     <div className='form-input'>

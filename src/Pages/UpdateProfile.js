@@ -373,7 +373,7 @@ const UpdateProfile = () => {
             <Grid item xs={12}>
               <Button type='submit' variant="contained" fullWidth disabled={loading}>
                 {
-                  loading ? <><SyncOutlined spin />Loading...</> :
+                  loading ? <><SyncOutlined spin /></> :
                     "Update"
                 }
               </Button>
