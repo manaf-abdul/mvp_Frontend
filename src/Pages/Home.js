@@ -1,111 +1,77 @@
-import { useState, useEffect, useContext } from 'react'
-import { Menu } from 'antd'
-import './Home.css'
+import { AppstoreOutlined, MailOutlined, SettingOutlined,UserOutlined } from '@ant-design/icons';
+import { Menu } from 'antd';
+import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import axios from "axios"
-import { toast } from 'react-toastify'
-import { AppstoreAddOutlined, CarryOutOutlined, TeamOutlined, CoffeeOutlined, LogoutOutlined, LoginOutlined, UserAddOutlined } from '@ant-design/icons'
+import './Home.css';
 
-const { Item, SubMenu, ItemGroup } = Menu
+const items = [
+  {
+    label: (<NavLink to='/home'>Home</NavLink>),
+    key: 'mail',
+    icon: <MailOutlined />,
+  },
+  {
+    label: (<NavLink to='/home'>Chat</NavLink>),
+    key: 'chat',
+    icon: <AppstoreOutlined />,
+    disabled: false,
+  },
+  {
+    label: (<NavLink to='/home'>Events</NavLink>),
+    key: 'events',
+    icon:  <SettingOutlined />,
+    disabled: false,
+  },
+  {
+    label: (<NavLink to='/home'>My Profile</NavLink>),
+    key: 'profile',
+    icon:  <UserOutlined />,
+    disabled: false,
+  },
+];
 
-const TopNav = () => {
-    const [current, setCurrent] = useState('')
+const Home = () => {
+  const [current, setCurrent] = useState('mail');
 
-    const logOut = async () => {
-        // handle logout logic
-    }
+  const onClick = (e) => {
+    console.log('click ', e);
+    setCurrent(e.key);
+  };
 
-    return (
-        <Menu mode='horizontal' selectedKeys={[current]}  theme='dark' style={{ backgroundColor: '#3255F1' ,lineHeight: '64px', color: '#FFFFFF' }} >
-            <Item
-                key="/"
-                style={{float:"left"}}
-                onClick={(e) => setCurrent(e.key)}
-                icon={<AppstoreAddOutlined />}
-            >
-                <NavLink to='/'>App</NavLink>
-            </Item>
+  return (
+    <div className='container'>
+      <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} className="menu">
+        {items.map(item => {
+          if (item.children) {
+            return (
+              <Menu.SubMenu
+                key={item.key}
+                icon={item.icon}
+                title={item.label}
+                className="menu-submenu"
+              >
+                {item.children.map(child => (
+                  <Menu.Item key={child.key} className="menu-item">
+                    {child.label}
+                  </Menu.Item>
+                ))}
+              </Menu.SubMenu>
+            )
+          } else {
+            return (
+              <Menu.Item
+                key={item.key}
+                icon={item.icon}
+                className="menu-item"
+              >
+                {item.label}
+              </Menu.Item>
+            )
+          }
+        })}
+      </Menu>
+    </div>
+  )
+};
 
-            <>
-                {/* <Item
-                    key="/login"
-                    onClick={(e) => setCurrent(e.key)}
-                    icon={<LoginOutlined />}
-                >
-                    <NavLink to='/login'>Login</NavLink>
-                </Item>
-                <Item
-                    key="/register"
-                    onClick={(e) => setCurrent(e.key)}
-                    icon={<UserAddOutlined />}
-                >
-                    <NavLink to='/register'>Register</NavLink>
-                </Item> */}
-            </>
-            <div className="menu-container">
-            <Item
-                key="/instructor/course/create"
-                onClick={(e) => setCurrent(e.key)}
-                icon={<CarryOutOutlined />}
-            >
-                <NavLink to='/instructor/course/create'>Home</NavLink>
-            </Item>
-
-            <Item
-                key="/user/become-instructor"
-                onClick={(e) => setCurrent(e.key)}
-                icon={<TeamOutlined />}
-            >
-                <NavLink to='/user/become-instructor'>Chat</NavLink>
-            </Item>
-
-            <Item
-                key="/instructor"
-                onClick={(e) => setCurrent(e.key)}
-                icon={<TeamOutlined />}
-            >
-                <NavLink to='/instructor'>Events</NavLink>
-            </Item>
-            </div>
-            <SubMenu
-                icon={<CoffeeOutlined />}
-                title={"Manaf"}
-                className="float-right"
-                style={{ position: "absolute", right: "2rem" }}
-            >
-                <ItemGroup className='float-right'>
-                    <Item
-                        key="/user"
-                        onClick={(e) => setCurrent(e.key)}
-                        icon={<UserAddOutlined />}
-                    >
-                        <NavLink to='/user'>Upgarde Premium</NavLink>
-                    </Item>
-                    <Item
-                        key="/user"
-                        onClick={(e) => setCurrent(e.key)}
-                        icon={<UserAddOutlined />}
-                    >
-                        <NavLink to='/user'>DashBoard</NavLink>
-                    </Item>
-                    <Item
-                        key="/user"
-                        onClick={(e) => setCurrent(e.key)}
-                        icon={<UserAddOutlined />}
-                    >
-                        <NavLink to='/user'>DashBoard</NavLink>
-                    </Item>
-                    <Item
-                        onClick={logOut}
-                        icon={<LogoutOutlined />}
-                        style={{ "float": "end" }}
-                    >
-                        Logout
-                    </Item>
-                </ItemGroup>
-            </SubMenu>
-        </Menu>
-    )
-}
-
-export default TopNav
+export default Home;

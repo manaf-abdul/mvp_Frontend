@@ -97,13 +97,13 @@ const SignIn = () => {
                         <label for="remember-me">Remember me</label>
                     </div> */}
                     <div className='form-input'>
-                        <button type='submit'>{loading ? "Loading..." : "Login"}</button>
+                        <button disabled={loading} type='submit'>{loading ? "Loading..." : "Login"}</button>
                     </div>
                     <div className='form-input'>
                         <Link>Forgot Password</Link>
                     </div>
                     <hr />
-                    <div className='footer-text'>
+                    <div className='footer-texts'>
                         <p>Don't have an account ?</p>
                         <Link to={'/signup'}>SignUp</Link>
                     </div>

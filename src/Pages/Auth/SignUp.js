@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import './SignUp.css'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, NavLink, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClose, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons'
 import { toast } from 'react-toastify'
@@ -81,8 +81,8 @@ const SignUp = () => {
 
   return (
     <div>
-      <div className='container-custom' style={{marginTop:"2rem"}}>
-        <div className='form-box'>
+      <div className='container-custom'>
+        <div className='form-box' style={{marginTop:"3rem"}}>
         <h1>Sign Up</h1>
           {
             otpPage ?
@@ -173,9 +173,9 @@ const SignUp = () => {
                     <button type="submit">{loading?"loading...":"Sign Up"}</button>
                   </div>
                   <hr />
-                  <div className='footer-text'>
+                  <div className='footer-texts'>
                     <p>Already have an account?</p>
-                    <Link to={'/'}>Login</Link>
+                    <NavLink to={'/'}>Login</NavLink>
                   </div>
                 </form>
               </>
