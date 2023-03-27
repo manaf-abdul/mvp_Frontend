@@ -1,0 +1,19 @@
+.menu-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+.ant-menu-horizontal {
+  background-color: #3255F1;
+}
+
+.ant-menu-horizontal > .ant-menu-item > a,
+.ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title > a {
+  color: #FFFFFF;
+}
+
+.ant-menu-horizontal > .ant-menu-item > span > i,
+.ant-menu-horizontal > .ant-menu-submenu > .ant-menu-submenu-title > span > i {
+  color: #FFFFFF;
+}

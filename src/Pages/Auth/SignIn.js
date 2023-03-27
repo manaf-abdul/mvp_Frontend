@@ -38,10 +38,10 @@ const SignIn = () => {
                 const { data } = await axios.post(`${BASEURL}/auth/login`, payload)
                 toast.success("SignIn Successfull")
                 console.log("data",data)
-                if (data && data.accessToken) {
+                if (data && data.user) {
                     console.log("inside")
-                    setUser(data)
-                    localStorage.setItem('user',JSON.stringify(data.accessToken))
+                    setUser(data.user)
+                    localStorage.setItem('user',JSON.stringify(data.user))
                     navigate('/home')
                 }
             }
@@ -54,7 +54,7 @@ const SignIn = () => {
     }
 
     return (
-        <div className='container'>
+        <div className='container-custom'>
             <div className='form-box'>
                 <h1>Login</h1>
                 <button className='google-btn'><img src="./google.png"></img>Log in with Google</button>
@@ -92,10 +92,10 @@ const SignIn = () => {
                             </span>
                         </div>
                     </div>
-                    <div className='form-check-input'>
+                    {/* <div className='form-check-input'>
                         <input id="remember-me" type="checkbox"></input>
                         <label for="remember-me">Remember me</label>
-                    </div>
+                    </div> */}
                     <div className='form-input'>
                         <button type='submit'>{loading ? "Loading..." : "Login"}</button>
                     </div>

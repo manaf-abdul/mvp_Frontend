@@ -1,0 +1,104 @@
+.form-box-custom {
+    width:500px;
+    padding: 1rem;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+}
+
+.container-custom {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f2f2f2;
+  }
+  
+  .form-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 400px;
+  }
+  
+  .form-box h1 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .form-input {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .form-input label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .form-input input {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    padding: 10px;
+  }
+  
+  .password-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-input input {
+    flex: 1;
+  }
+  
+  .password-input span {
+    margin-left: -30px;
+    cursor: pointer;
+  }
+  
+  button {
+    background-color: #4caf50;
+    border: none;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 16px;
+    padding: 10px;
+    width: 100%;
+  }
+  
+  button.google-btn {
+    background-color: #4285f4;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  button.google-btn img {
+    height: 20px;
+    margin-right: 10px;
+  }
+  
+  .footer-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 20px;
+  }
+  
+  .footer-text p {
+    font-size: 14px;
+    margin-right: 5px;
+  }
+  
+  .footer-text a {
+    color: #4caf50;
+    font-weight: bold;
+    text-decoration: none;
+  }
+  

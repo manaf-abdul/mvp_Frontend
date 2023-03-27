@@ -66,11 +66,11 @@ const SignUp = () => {
       const {data} = await axios.post(`${BASEURL}/auth/verify-otp`, payload)
       console.log("data", data)
       toast.success("SignUp Successfull")
-      if (data && data.accessToken) {
+      if (data && data.user) {
         console.log("inside")
-        setUser(data)
-        localStorage.setItem('user',JSON.stringify(data.accessToken))
-        navigate('/home')
+        setUser(data.user)
+        localStorage.setItem('user',JSON.stringify(data.user))
+        navigate('/update-profile')
     }
     } catch (error) {
       toast.error(error.response.data.message)
@@ -81,9 +81,9 @@ const SignUp = () => {
 
   return (
     <div>
-      <div className='container'>
+      <div className='container-custom' style={{marginTop:"2rem"}}>
         <div className='form-box'>
-          <h1 style={{ textAlign: "center" }}>Sign Up</h1>
+        <h1>Sign Up</h1>
           {
             otpPage ?
               <>
@@ -165,10 +165,10 @@ const SignUp = () => {
                       </input>
                     </div>
                   </div>
-                  <div className='form-check-input' style={{ marginTop: "6px" }}>
+                  {/* <div className='form-check-input' style={{ marginTop: "6px" }}>
                     <input id="check-box" type="checkbox" placeholder="name"></input>
                     <label htmlFor='check-box'>i agree with <Link>terms</Link> And <Link>Privacy</Link></label>
-                  </div>
+                  </div> */}
                   <div className='form-input'>
                     <button type="submit">{loading?"loading...":"Sign Up"}</button>
                   </div>
