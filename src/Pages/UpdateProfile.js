@@ -25,8 +25,10 @@ import {
 import BASEURL from '../constants';
 import axios from "axios"
 import './UpdateProfile.css'
+import { useNavigate } from 'react-router-dom';
 
 const UpdateProfile = () => {
+  const navigate=useNavigate()
 
   const ITEM_HEIGHT = 48;
   const ITEM_PADDING_TOP = 8;
@@ -96,14 +98,14 @@ const UpdateProfile = () => {
 
   const { user, setUser } = UserState()
   const [values, setValues] = useState({
-    name: user.name,
-    email: user.email,
-    contactNumber: user.contactNumber,
-    linkedInProfile: user.linkedInProfile,
-    currentCity: user.currentCity,
-    about: user.about,
-    currentOrganization: user.currentOrganization,
-    department: user.department,
+    name: user?.name,
+    email: user?.email,
+    contactNumber: user?.contactNumber,
+    linkedInProfile: user?.linkedInProfile,
+    currentCity: user?.currentCity,
+    about: user?.about,
+    currentOrganization: user?.currentOrganization,
+    department: user?.department,
   })
 
   const submitHandler = async (e) => {
@@ -116,8 +118,9 @@ const UpdateProfile = () => {
       }
       const { data } = await axios.put(`${BASEURL}/user/update-profile`, { ...values, image, skills, tags }, config)
       console.log({ data })
+      navigate('/home')
     } catch (error) {
-
+      navigate('/home')
     }
   }
 
